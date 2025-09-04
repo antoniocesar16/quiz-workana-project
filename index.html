@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Reconquista – Clone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'roboto': ['Roboto', 'sans-serif'],
+            'montserrat': ['Montserrat', 'sans-serif'],
+          },
+          colors: {
+            'accent': '#dc2626',
+            'accent-800': '#991b1b',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.6; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+    .animate-bounce-dot { animation: bounce 1s infinite ease-in-out; }
+    .animate-bounce-dot:nth-child(2) { animation-delay: 0.15s; }
+    .animate-bounce-dot:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body class="m-0 p-4 bg-black font-roboto text-white flex items-start justify-center min-h-screen">
+  <div class="w-full h-full bg-black rounded-3xl shadow-2xl relative overflow-hidden border border-gray-800" id="app">
+    <header class="sticky top-0 z-10 px-5 pt-4 pb-2 bg-black">
+      <div class="flex items-center gap-2">
+        <button class="inline-flex items-center justify-center w-7 h-7 rounded-full border border-gray-600 bg-gray-900 cursor-pointer opacity-90 hover:opacity-100 hover:-translate-x-1 transition-all duration-150" id="btnBack" style="visibility:hidden">⬅</button>
+        <div class="flex items-center gap-2 ml-2">
+          <svg class="w-8 h-8" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff" d="M24 43s-9.6-6.7-15.1-12.2C4.4 26.3 3 22.7 3 19.7 3 13.6 8 9 14 9c3.3 0 6.3 1.6 8 4.1C23.7 10.6 26.7 9 30 9c6 0 11 4.6 11 10.7 0 3-1.5 6.6-5.9 11.1C33.7 34.7 24 43 24 43z"/>
+            <path fill="#ee2b2b" d="M24 39.8S15.2 33.5 10.4 28.7c-4-4-5.4-7-5.4-9 0-4.8 3.9-8.6 8.7-8.6 2.9 0 5.6 1.4 7.3 3.8l3 4.3 3-4.3c1.7-2.4 4.4-3.8 7.3-3.8 4.8 0 8.7 3.9 8.7 8.6 0 2-1.4 5-5.4 9C32.8 33.5 24 39.8 24 39.8z"/>
+          </svg>
+          <div>
+            <div class="font-black text-sm leading-none tracking-wide">Antônio César</div>
+            <div class="font-bold text-xs leading-none opacity-90">Freela - Exemplo</div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 mx-1 h-2 bg-gray-800 rounded-full border border-red-900 relative overflow-hidden">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-full transition-all duration-300" id="progressBar"></div>
+      </div>
+    </header>
+
+    <main class="px-5 pt-7 pb-6">
+      <!-- Step 1 -->
+      <section id="step-gender" class="step">
+        <div class="mt-16 text-center">
+          <h1 class="text-3xl md:text-4xl leading-tight mb-3 font-black tracking-wide">Não deixe ele(a) ir em<br/><span class="text-accent">bora para sempre!</span></h1>
+          <p class="text-white text-4xl font-roboto font-medium my-8">Vamos começar: qual o seu gênero?</p>
+          <div class="flex gap-4 flex-wrap">
+            <button class="flex-1 min-w-[45%] flex items-center justify-center min-h-[56px] px-5 py-4 rounded-2xl border border-red-700 bg-gradient-to-b from-red-500 to-accent text-white font-montserrat font-medium text-base cursor-pointer hover:opacity-90 transition-opacity" data-gender="Masculino">Masculino</button>
+            <button class="flex-1 min-w-[45%] flex items-center justify-center min-h-[56px] px-5 py-4 rounded-2xl border border-red-700 bg-gradient-to-b from-red-500 to-accent text-white font-montserrat font-medium text-base cursor-pointer hover:opacity-90 transition-opacity" data-gender="Feminino">Feminino</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+      <section id="step-age" class="step hidden">
+        <div class="mt-16 text-left">
+          <h1 class="text-3xl md:text-4xl leading-tight mb-3 font-black tracking-wide">Qual a sua idade? 👇</h1>
+          <p class="text-gray-400 my-6 font-medium">Selecione sua faixa etária correta:</p>
+          <div class="grid gap-3">
+            <div class="flex items-center justify-between gap-3 px-5 py-4 rounded-2xl border-2 border-red-600 bg-black text-white cursor-pointer hover:bg-gray-900 transition-colors" data-age="18-29">
+              <span class="font-medium">18-29</span>
+              <span class="text-red-500">></span>
+            </div>
+            <div class="flex items-center justify-between gap-3 px-5 py-4 rounded-2xl border-2 border-red-600 bg-black text-white cursor-pointer hover:bg-gray-900 transition-colors" data-age="29-39">
+              <span class="font-medium">29-39</span>
+              <span class="text-red-500">></span>
+            </div>
+            <div class="flex items-center justify-between gap-3 px-5 py-4 rounded-2xl border-2 border-red-600 bg-black text-white cursor-pointer hover:bg-gray-900 transition-colors" data-age="34-49">
+              <span class="font-medium">34-49</span>
+              <span class="text-red-500">></span>
+            </div>
+            <div class="flex items-center justify-between gap-3 px-5 py-4 rounded-2xl border-2 border-red-600 bg-black text-white cursor-pointer hover:bg-gray-900 transition-colors" data-age="50+">
+              <span class="font-medium">+50</span>
+              <span class="text-red-500">></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 3 -->
+      <section id="step-message" class="step hidden">
+        <div>   
+
+            <div class="grid place-items-center text-center min-h-[320px] relative">
+                <div>
+                    <h1 class="text-3xl md:text-4xl leading-tight mb-6 font-black tracking-wide">Leia com atenção:</h1>
+                    <div class="bg-white text-black rounded-2xl p-6 font-semibold leading-relaxed max-w-[90%] mx-auto text-left">
+                    <p class="font-bold text-lg mb-4">Mulheres se questionam a todo momento se fizeram uma boa escolha ao terminar...</p>
+                    <p class="font-medium text-base">Às vezes pode parecer que não, mas sua ex te observa e pensa em você com mais frequência do que você imagina...</p>
+                    <div class="mt-6 text-sm font-medium text-gray-600 text-right">Ass. Dr Juan Duarte</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 left-5 right-5">
+            <div class="flex items-center gap-3">
+                <div class="flex-1 h-2 bg-gray-800 rounded-full overflow-hidden">
+                    <div class="h-2 bg-accent rounded-full transition-all duration-300 w-0" id="messageProgressBar"></div>
+                </div>
+                <span class="text-gray-400 text-sm font-medium" id="progressPercentage">0%</span>
+            </div>
+        </div>
+        
+      </section>
+
+      <!-- Step 4 -->
+      <section id="step-result" class="step hidden">
+        <div class="grid place-items-center text-center min-h-[320px]">
+          <div>
+            <h1 class="text-3xl md:text-4xl leading-tight mb-3 font-black tracking-wide">Analisando suas respostas…</h1>
+            <div class="inline-flex gap-2">
+              <span class="w-2 h-2 rounded-full bg-accent animate-bounce-dot"></span>
+              <span class="w-2 h-2 rounded-full bg-accent animate-bounce-dot"></span>
+              <span class="w-2 h-2 rounded-full bg-accent animate-bounce-dot"></span>
+            </div>
+            <p class="text-gray-400 my-6 font-medium">Isso leva apenas alguns segundos.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 5 -->
+      <section id="step-thanks" class="step hidden">
+        <div class="grid place-items-center text-center min-h-[320px]">
+          <div>
+            <h1 class="text-3xl md:text-4xl leading-tight mb-3 font-black tracking-wide">Pronto! ✅</h1>
+            <p class="text-gray-400 my-6 font-medium">Obrigado por participar. Você selecionou: <strong id="answersPreview"></strong></p>
+            <button class="flex items-center justify-center min-h-[56px] px-5 py-4 rounded-2xl border border-red-700 bg-gradient-to-b from-red-500 to-accent text-white font-montserrat font-medium text-base cursor-pointer hover:opacity-90 transition-opacity" id="btnRestart">Refazer quiz</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const steps = ["gender", "age", "message", "result", "thanks"];
+      let current = 0;
+      const answers = { genero:null, idade:null };
+
+      const el = (id)=>document.getElementById(id);
+      const qa = (sel,ctx=document)=>Array.from(ctx.querySelectorAll(sel));
+
+      const bar = el('progressBar');
+      const back = el('btnBack');
+      const progressPercentage = el('progressPercentage');
+      const messageProgressBar = el('messageProgressBar');
+
+      // Função para contar palavras e calcular progresso
+      function updateProgressByWords() {
+        const messageText = "Mulheres se questionam a todo momento se fizeram uma boa escolha ao terminar Às vezes pode parecer que não mas sua ex te observa e pensa em você com mais frequência do que você imagina";
+        const words = messageText.split(' ');
+        const totalWords = words.length;
+        let currentWordIndex = 0;
+        
+        // Começa com 0%
+        if (progressPercentage) {
+          progressPercentage.textContent = '0%';
+        }
+        if (messageProgressBar) {
+          messageProgressBar.style.width = '0%';
+        }
+        
+        const interval = setInterval(() => {
+          currentWordIndex++;
+          const percentage = Math.min(Math.round((currentWordIndex / totalWords) * 100), 100);
+          
+          if (progressPercentage) {
+            progressPercentage.textContent = percentage + '%';
+          }
+          
+          // Atualiza apenas o progress bar da mensagem (não o do header)
+          if (messageProgressBar) {
+            messageProgressBar.style.width = percentage + '%';
+          }
+          
+          if (currentWordIndex >= totalWords) {
+            clearInterval(interval);
+            // Após completar, vai para o próximo step
+            setTimeout(() => {
+              showStep(3);
+              setTimeout(() => {
+                el('answersPreview').textContent = `${answers.genero} • ${answers.idade}`;
+                showStep(4);
+              }, 2000);
+            }, 1000);
+          }
+        }, 200); // 200ms por palavra para um ritmo de leitura natural
+      }
+
+      function showStep(i){
+        current = Math.max(0, Math.min(i, steps.length-1));
+        steps.forEach((name, idx)=>{
+          const s = el(`step-${name}`);
+          if(!s) return;
+          s.classList.toggle('hidden', idx!==current);
+        });
+        
+        // Progresso normal para todos os steps (mantém o header sempre atualizado)
+        const pct = Math.round(((current+1) / steps.length) * 100);
+        bar.style.width = pct + '%';
+        
+        back.style.visibility = current>0 ? 'visible' : 'hidden';
+      }
+
+      qa('#step-gender button').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          answers.genero = btn.dataset.gender;
+          showStep(1);
+        });
+      });
+
+      qa('#step-age div[data-age]').forEach(item=>{
+        item.addEventListener('click', ()=>{
+          answers.idade = item.dataset.age;
+          showStep(2);
+          setTimeout(()=>{
+            // Inicia o progresso por palavras quando chega no step 3
+            updateProgressByWords();
+          }, 500);
+        });
+      });
+
+      back.addEventListener('click', ()=>{ if(current>0){ showStep(current-1); } });
+      el('btnRestart').addEventListener('click', ()=>{ answers.genero=null; answers.idade=null; showStep(0); });
+
+      showStep(0);
+    })();
+  </script>
+</body>
+</html>
